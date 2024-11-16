@@ -52,15 +52,6 @@ GetTranslationModule().then(() => {
     }
   });
 
-  client.on("ready", (client) => {
-    if (client.config.app.global)
-      client.application.commands.set(commandsArray);
-    else
-      client.guilds.cache
-        .get(client.config.app.guild)
-        .commands.set(commandsArray);
-  });
-
   async function parseLog(txtEvent) {
     console.log(await Translate(txtEvent, null));
   }
