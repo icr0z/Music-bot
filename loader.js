@@ -1,4 +1,3 @@
-const keep_alive = require('./keep_alive.js')
 const { readdirSync } = require("fs");
 const { Collection } = require("discord.js");
 const { useMainPlayer } = require("discord-player");
