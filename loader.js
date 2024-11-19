@@ -42,23 +42,14 @@ GetTranslationModule().then(() => {
       const command = require(`./commands/${dirs}/${file}`);
       if (command.name && command.description) {
         commandsArray.push(command);
-        const txtEvent = `< -> > [Loaded Command] <${command.name.toLowerCase()}>`;
+        const txtEvent = `< -> > [Loaded Command] <${command.name} [${dirs}]>`;
         parseLog(txtEvent);
         client.commands.set(command.name.toLowerCase(), command);
         delete require.cache[require.resolve(`./commands/${dirs}/${file}`)];
       } else {
-        const txtEvent = `< -> > [Failed Command] <${command.name.toLowerCase()}>`;
+        const txtEvent = `< -> > [Failed Command] <${command.name} [${dirs}]>`;
         parseLog(txtEvent);}
     }
-  });
-
-  client.on("ready", (client) => {
-    if (client.config.app.global)
-      client.application.commands.set(commandsArray);
-    else
-      client.guilds.cache
-        .get(client.config.app.guild)
-        .commands.set(commandsArray);
   });
 
   async function parseLog(txtEvent) {
