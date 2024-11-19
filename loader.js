@@ -52,7 +52,10 @@ GetTranslationModule().then(() => {
     }
   });
 
-    client.on("ready", (client) => {
+  client.commands = new Map();
+  client.commands.set(commandsArray);
+
+  client.on("ready", (client) => {
     if (client.config.app.global)
       client.application.commands.set(commandsArray);
     else
