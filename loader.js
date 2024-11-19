@@ -1,6 +1,8 @@
 const { readdirSync } = require("fs");
 const { Collection } = require("discord.js");
 const { useMainPlayer } = require("discord-player");
+const fs = require('fs');
+const path = require('path');
 client.commands = new Collection();
 const commandsArray = [];
 const player = useMainPlayer();
@@ -52,21 +54,13 @@ GetTranslationModule().then(() => {
     }
   });
 
-  console.log('client.commands:', client.commands);
-  console.log('commandsArray:', commandsArray);
-  client.commands.set(commandsArray);
+const commandFiles = fs.readdirSync(path.join(__dirname, 'commands')).filter(file => file.endsWith('.js'));
 
-  client.commands = new Map();
-  client.commands.set(commandsArray);
 
-  client.on("ready", (client) => {
-    if (client.config.app.global)
-      client.application.commands.set(commandsArray);
-    else
-      client.guilds.cache
-        .get(client.config.app.guild)
-        .commands.set(commandsArray);
-  });
+commandFiles.forEach(file => {
+    const command = require(`./commands/${file}`);
+    client.commands.set(command.data.name, command);  // Charge les commandes dans la Map
+});
 
   async function parseLog(txtEvent) {
     console.log(await Translate(txtEvent, null));
