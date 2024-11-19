@@ -52,6 +52,10 @@ GetTranslationModule().then(() => {
     }
   });
 
+  console.log('client.commands:', client.commands);
+  console.log('commandsArray:', commandsArray);
+  client.commands.set(commandsArray);
+
   client.commands = new Map();
   client.commands.set(commandsArray);
 
